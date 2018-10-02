@@ -1,0 +1,497 @@
+l2p_rules: | 
+    š   S
+    ž   S
+    s~  S
+    z~  S
+    
+    ø   ö
+    
+    q   k
+
+    tt   T
+    kk   K
+    pp   P
+
+    ph    f
+
+    x   ks
+    sch S
+    ^ch([aeiou])    tS$1
+    ^chr            kr
+    cz    tS
+    ici itsi
+    ([aeiou])ch    $1hh
+    ([aeiou])ck    $1K
+    ^c(?=[i])   s
+    ([rln])c([ei]) $1ts$2
+    c   k
+    y   i
+    z   s
+    w   v
+    ć   tS
+    č   tS
+    ç   ts
+    ĉ   tS
+    ł   l
+    ğ   g
+    
+    ([aeiou]|^)sh(?=($|[aeiou]))    $1S
+
+    ([aeiouõäöümnlrv])k(?=($|([lrmnvjaeiouõäöü]))) $1K
+    ([aeiouõäöümnlrv])p(?=($|([lrmnvjaeiouõäöü]))) $1P
+    ([aeiouõäöümnlrv])t(?=($|([lrmnvjaeiouõäöü]))) $1T
+    jj  ij
+
+    d   t
+    g   k
+    b   p
+
+
+    ([^aeiouõäöü])i([aeouõäöü]) $1j$2
+
+    ([aeiouõäöü])i([aeouõäöü]) $1ij$2
+
+    [\+-\?=~]
+
+
+word_variants: |
+
+    kümmend kend
+    tegelikult  tegelt
+    siis    sis
+    ja     jaa
+    seal    sel
+    need    ned
+    veel     vel
+    praegu  präägu
+    vaata   vata
+    kuidagi kudagi
+    mõttes  mõts
+    lihtsalt lissalt
+    lihtsalt lissat
+    kindlasti   kinlasti
+    kaheksa kaeksa
+    üheksa    üeksa
+    üheksa    öeksa
+
+    selle(.*)   sele$1
+    (.*[aeiouõäöü])nud$ $1nd
+    
+    (.*)äe(.*) $1ää$2
+    
+    see se
+    et ed
+    ei e
+    on onn
+    ja ea
+    kui ku
+    ka kaa
+    ei i
+    on n
+    nii ni
+    siis siss
+    nüüd nüd
+    või võ
+    aga a
+    kuidas kudas
+    mis miss
+    siin sin
+    on o
+    ma m
+    seal säl
+    küll kül
+    oli li
+    hästi ästi
+    niimoodi nimodi
+    meil mel
+    muidugi mudugi
+    no noo
+    kus kuss
+    ta taa
+    on om
+    seda sda
+    selline seline
+    või vä
+    seal sääl
+    kõik kõkk
+    kes kess
+    nagu nau
+    need neet
+    kas kass
+    saab sab
+    olnud old
+    nagu nigu
+    kuule kule
+    ajal aal
+    asja assja
+    öelda öölda
+    läheb lääb
+     
+
+    
+    
+    
+
+
+phon2phon: |
+    S    sh
+    õ    ou
+    ä    ae
+    ö    oe
+    ü    ue
+    K    kk
+    P    pp
+    T    tt
+    
+
+
+phonemes: a ae e f h i j k kk l m n o oe ou p pp r s sh t tt u ue v
+
+#special abbreviations
+# "?" means: read as a lowercase word
+abbreviations: |
+    BBC     bii bii sii
+    BMW     pee emm vee
+    CD-ROM  tseede romm
+    CNN     sii enn enn
+    CIA     sii ai ei
+    CBS     sii bii ess
+    WC		vee tsee
+    YLE		üle
+    WTO		vee tee oo
+    IBM		aibii emm
+    SQL	 	ess kuu ell
+    FBI		ef bii ai
+    BICO	piko
+    UNICEF  uniseff
+    PRIA    priija
+    UNIX    ?
+    BIG     ?
+    MASU    ?
+    ETA     ?
+    EMKE    ?
+    ERSO    ?
+    ESMA    ?
+    ManU    ?
+    NASA    ?
+    NATO    ?
+    OMON    ?
+    RAM     ?
+    ROK     ?
+    TALSE   ?
+    TASS    ?
+    TOP     ?
+    FIS     fiss
+    AIDS    ?
+    TALO    ?
+    EKI             ?
+    EMOR    ?
+    ARK             ?
+    ISIC    ?
+    ATAK    ?
+    ITIC    ?
+    PERH    ?
+    SAAB    ?
+    SAPA    ?
+    SAP             ?
+    SEBE    ?
+    UNESCO ?
+    SmartPOST       ?
+    ZEN     ?
+    KAPO ?
+    PRAXIS ?
+    AMOLED  ?
+    UFO     ?
+    FIE     fiie
+    JUKOS   ?
+    EXPO    ?
+    ACTA    ?
+    ADAMS   ?
+    CERN    tsern
+    EITSA   ?
+    ERNA    ?
+    EFA     ?
+    PÖFF    ?
+    HÕFF    ?
+    VEF     ?
+    JFK     dšei eff kei
+    WRC     vee err tsee
+    OLED    ooleed
+    LED     leed
+    GEO     ?
+    MAP     mapp
+    EMHI    ?
+    BASF    ?
+    EST     ?
+    EKA     ?
+    IDEA    ?
+    ERM     ?
+    VEB     veeb
+    IPO     ?
+    BREM    ?
+    EEK     eek, eeki, krooni
+    EUR     euro, eurot
+    IKEA    igeaa
+    OPEC    ?
+    WADA    ?
+    JPMorgan    dšei pii morgan
+    iPad    aipääd
+    iPhone  aifõun
+    iPod    aipod
+    iOS     aioss
+    iTunes  aitjuuns
+    EKA     ?
+    PRISM   ?
+    TH      tee haa, torakaal
+    KATE    kate
+    WEB     veeb
+    SAPI    ?
+    API     ?
+    CES     tsess
+    PIN     pinn
+    PC      piisii
+    CLARIN ?
+    ERIC   ?
+    ROM    ?
+    TAK    ?
+    VII    seitsmes
+    VIII   kaheksas
+    IX     üheksas
+    XI     üheteistkümnes
+    XII    kaheteistkümnes
+    XIII   kolmeteistkümnes
+    SIM    ?
+    PISA   ?
+    CAD    kääd
+    EKRE   ?
+    RIMI   ?    
+    OK     okk, okei
+    
+    
+    
+    
+    
+
+spell: |
+    A   aa
+    B   bee
+    C   tsee
+    D   dee
+    E   ee
+    F   eff
+    G   gee
+    H   haa
+    I   ii
+    J   jott
+    K   kaa
+    L   ell
+    M   emm
+    N   enn
+    O   oo
+    P   pee
+    R   err
+    Q   kjuu , kuu
+    S   ess
+    T   tee
+    U   uu
+    V   vee
+    W   kaksisvee , vee
+    Õ   õõ
+    Ä   ää
+    Ö   öö
+    Ü   üü
+    Z   tsett
+    Š   šaa
+    Ž   žee
+    X   iks
+    Y   igrek
+
+
+dict: |    
+    Buckingham bakinhäm
+    Elizabeth   eliisabet
+    Line    lain
+    Philip  filip
+    Mahmoud mahmud
+    Fatah  fataa
+    Abbas  abass
+    Mozart  mootsart
+    Salzburg   saltspurg
+    Lech    lehh
+    Kaczynski katšõnski
+    Thames tems
+    Gaza    kaasa
+    Blair   bleir
+    Tony    tõuni
+    Mercedes    mertsedes
+    Times   taims
+    Online  onlain
+    New njuu
+    News    njuus
+    Estonian    estõunjan
+    Washington uašington
+    George   džoodž
+    Yorgi   jorgi
+    York    jork    
+    Al-Qaeda al-kaeeda
+    Jacques žakk
+    Justsenko jušenko
+    Timosenko timošenko
+    Qaeda   kaeeda
+    Google  kuugl
+    Page    peidš
+    Office  offiss
+    Dance   tääns
+    r'n'b   aarändbii
+    Wordnet uöödnet
+    Wikileaks vikiliiks
+    Leaks liiks
+    Assange assaanž
+    Julian  tžuljan
+    Cablegate keiblkeit
+    Guardian kaardian
+    The te
+    Google  guugl
+    New njuu
+    Business    bisnes
+    Reggae  rege
+    Baltic  booltik , baltik
+    Service sööviss , serviss
+    Boeing bõuing
+    Boulevard   bulevaar
+    Coq kokk
+    Estravel esträvel
+    Estonia estõunja
+    Exchange    ikstšeindž
+    Fazer   fatser
+    Go   kõu
+    Kline klain
+    Fujitsu fuutšitsu
+    Mc  mäk
+    Oracle  orakl
+    Price   praiss
+    Waterhouse uooterhauss
+    Coopers kuupers
+    Security    sekjuriti
+    Tech    tehh
+    Windows vindous , uindous
+    Xdream  iks_driim
+    Welcome uelkom
+    Touch tatš
+    Facebook  feissbuuk
+    Apple äppl
+    Jobs  tšoops
+    Gmail keemeil, keemail
+    Steve stiiv
+    Bloomberg bluumberg
+    Ryanair rajaneir
+    Prime praim
+    Gingerbread džindžerbreed
+    Ice aiss
+    Cream kriim
+    Sandwich  sänduitš
+    Galaxy  käläksi
+    Nike  naik , naiki
+    Playstation pleisteišn
+    Kindle  kindl
+    Xperia  ikspeeria
+    Charlie tšarli
+    Echo eko
+    Juliet džuliet
+    Yankee  jänki
+    Mike maik
+    Note   nõut
+    Facebook feissbuk
+    Easyjet iisidžett
+    Financial   fainäntšal , finantšial
+    Alice   älis
+    Claude  klood , klaud
+    France  fraants
+    Cambridge   keimbridž
+    Francois    frantsuaa
+    www veeveevee
+    http    haatetepee
+    François    frantsuaa
+    Tour    tuur
+    Snowden snõuden
+    Sky     skai
+    Skype   skaip
+    Froome  fruum
+    Greipel graipel
+    Hollande    hollaan, hollaand
+    Garage  garaaž
+    Xbox    ikspoks
+    One     uann
+    Now     nau
+    Microsoft   mikrosoft, maikrosoft
+    Note    nõut
+    Chrome  krõum
+    Go      kõu
+    You     juu
+    Tube    tuub
+    Youtube juutuub
+    Touch   tatš
+    Nizza   nitsa
+    pizza   pitsa
+    Watch   uotš
+    Cook    kukk
+    Now     nau
+    MacBook mäkbuk
+    Wordnet vöödnet, uöödnet
+    Snapchat snäptšatt
+    Translate transleit, tränsleit
+    SmartID smaartidee
+    GoPro   kõuproo
+    Trump   tramp, trump
+    Prime   praim
+    Primera   primera
+    Chromecast krõumkaast
+    crazy   kreisi
+    Music   mjuusik
+    Week    viik
+    Wall    uool
+    Street  striit
+    Moodle  muudl
+    Walmart uolmart
+    Moore   muur
+    Lausanne lausann
+    Lake    leik
+    Dumas   tumaa
+    don't   dõunt
+    Royce   roiss
+    Gates   geits
+    Valley  väli
+    Science saiens
+    doesn't dasnt
+    Wave    veiv
+    Review  revjuu
+    Drive   draiv
+    Software softueer
+    PC      piisii
+    update  apdeit
+    cache   käš
+    layer   leijer
+    by      pai
+    Mary    meeri
+    Taylor  teilor
+    Key     kii
+    Angeles ändšeles
+    Sean    šoon
+    Lübeck  lüübek
+    Prix    prii
+    International internäsonal
+    Charles tšaarls
+    Thor    toor
+    Powerpoint pauerpoint
+    Law     loo
+    Michelangelo mikelandšelo
+    Disney  disni
+    Gamble  kämbl
+    Ok      okei, ok 
+    case    keis
+    Strike  straik
+    
+    
+    
+    
+
