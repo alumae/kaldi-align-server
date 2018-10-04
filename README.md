@@ -1,4 +1,4 @@
-== Introduction ==
+## Introduction
 
 Very simple web application for force-aligning audio with the given text. 
 
