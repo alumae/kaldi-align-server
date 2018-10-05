@@ -43,13 +43,16 @@ class MainHandler(tornado.web.RequestHandler):
         self.render(readme)
 
 class AlignHandler(tornado.web.RequestHandler):
-    
-    async def post(self, *args, **kwargs):
+
+    def initialize(self):
+        self.upload_id = str(uuid.uuid4())
         current_directory = os.path.dirname(os.path.abspath(__file__))
         parent_directory = os.path.join(current_directory, os.pardir)
-        aligner_directory = parent_directory + "/aligner/" 
+        self.aligner_directory = parent_directory + "/aligner/" 
 
-        logging.info("Got align request")
+
+    async def post(self, *args, **kwargs):
+        logging.info("Got alignment request")
         if ("wav" not in self.request.files):
             raise tornado.web.HTTPError(status_code=400, reason="'wav' file not provided in the upload")
         if ("txt" not in self.request.files):
@@ -59,27 +62,33 @@ class AlignHandler(tornado.web.RequestHandler):
         wav_filename = wav_file['filename']
         wav_extension = os.path.splitext(wav_filename)[1]
         wav_basename = os.path.splitext(wav_filename)[0]
-        upload_id = str(uuid.uuid4())
-        upload_wav_filename = "user_files/" + upload_id + ".wav" 
-        output_wav_file = open(aligner_directory + upload_wav_filename, 'wb')
+        
+        upload_wav_filename = "user_files/" + self.upload_id + ".wav" 
+        output_wav_file = open(self.aligner_directory + upload_wav_filename, 'wb')
         output_wav_file.write(wav_file['body'])
         output_wav_file.close()
 
         txt_file = self.request.files['txt'][0]
-        upload_txt_filename =  "user_files/" + upload_id + ".txt" 
-        output_txt_file = open(aligner_directory + upload_txt_filename, 'wb')
+        upload_txt_filename =  "user_files/" + self.upload_id + ".txt" 
+        output_txt_file = open(self.aligner_directory + upload_txt_filename, 'wb')
         output_txt_file.write(txt_file['body'])
         output_txt_file.close()
 
-        return_textgrid_filename = "user_files/" + upload_id + ".TextGrid"
+        return_textgrid_filename = "user_files/" + self.upload_id + ".TextGrid"
         logging.info("Starting alignment process")
-        await run_align(aligner_directory, upload_wav_filename, upload_txt_filename, return_textgrid_filename)
+        await run_align(self.aligner_directory, upload_wav_filename, upload_txt_filename, return_textgrid_filename)
         self.set_header('Content-Type', 'application/octet-stream')
         self.set_header('Content-Disposition', 'attachment; filename=%s' % wav_basename + ".TextGrid")
-        self.render(aligner_directory + "user_files/" + upload_id + ".TextGrid")
+        self.render(self.aligner_directory + "user_files/" + self.upload_id + ".TextGrid")
         logging.info("Finished alignment request")
-
     
+    def on_finish(self):
+        logging.info("Cleaning up")
+        for extension in ["wav", "txt", "TextGrid"]:
+            try:
+                os.remove(self.aligner_directory + "user_files/" + self.upload_id + "." + extension)
+            except Exception as e:
+                logging.exception("Error occurred when cleaning up")
 
 async def run_align(aligner_directory, wav, txt, textgrid):
     logging.info("Initializing alignment process")

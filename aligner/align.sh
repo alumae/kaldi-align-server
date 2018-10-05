@@ -70,7 +70,6 @@ cat ${srctxt} | uconv -x any-nfc | perl -npe 's/[\r\n]/ /g; s/[,.!?:]//g;' | per
 echo "dummy dummy" > $dir/data/spk2utt
 echo "dummy dummy" > $dir/data/utt2spk
 
-
 echo "Generating language model"
 
 # Make lexicon
@@ -100,21 +99,6 @@ cat $dir/data/text | local/transcript-to-unk-fst.py $dir/lang/words.txt | \
   fstcopy ark:- ark,scp:$dir/ali/graphs.ark,$dir/ali/graphs.scp
 
 
-### experimental
-#compile-train-graphs-fsts --transition-scale=1.0 --self-loop-scale=1.0 \
-  #--read-disambig-syms=$dir/lang/phones/disambig.int \
-  #build/model/${acmodel}/tree build/model/${acmodel}/final.mdl $dir/lang/L_disambig.fst \
-  #scp:$dir/ali/graphs.scp \
-  #ark,scp:$dir/ali/HCLG.fsts.ark,$dir/ali/HCLG.fsts.scp
-  
-#./steps/cleanup/decode_segmentation_nnet3.sh --nj 1 --online-ivector-dir $dir/ivectors \
-  #--acwt 1.0 \
-  #$dir/ali \
-  #$dir/data \
-  #$dir/ali 
-#exit;
-
-
 # align, produce lattices
 ./steps/nnet3/align_lats.sh --nj 1 --online-ivector-dir $dir/ivectors \
   --scale-opts '--transition-scale=1.0 --self-loop-scale=1.0' \
@@ -134,7 +118,7 @@ nbest-to-ctm --print-silence=true --frame-shift=${frame_shift} ark:$dir/ali/lat.
 #make phone CTM
 lattice-to-phone-lattice build/model/${acmodel}/final.mdl ark:$dir/ali/lat.ark ark:- | \
   nbest-to-ctm --print-silence=true --frame-shift=${frame_shift} ark:- - | \
-  ./utils/int2sym.pl -f 5 <(perl -npe 's/_[BIES]//' $dir/lang/phones.txt) > $dir/ali/phones.ctm
+  ./utils/int2sym.pl -f 5 <(perl -npe 's/_[BIES]//; s/ou/õ/g; s/ae/ä/g; s/oe/ö/g; s/ue/ü/g;' $dir/lang/phones.txt ) > $dir/ali/phones.ctm
 
 python3 local/make_textgrid.py $dir/ali/words.ctm $dir/ali/phones.ctm $dir/ali/result.TextGrid
 
