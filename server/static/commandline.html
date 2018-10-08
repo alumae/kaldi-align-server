@@ -1,0 +1,58 @@
+<!doctype html>
+
+<html lang="et">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Autosegmenteerija 2.0</title>
+  <meta name="description" content="Autosegmenteerija 2.0">
+  <meta name="author" content="Tanel Alumäe (TTÜ)">
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+</head>
+
+<body class="bg-light">
+  <div class="container">
+    <h1 class="form-heading">Autosegmenteerija 2.0</h1>
+    <h2>Kasutamine käsurealt</h2>
+    <p>
+      Autosegmenteerijat on suhteliselt lihtne kasutada käsurealt. Selleks tuleb programmi <a href="https://curl.haxx.se/">curl</a> abil helifail ja tekst saata POST päringu 
+      abil serverisse, umbes nii:
+    </p>
+    <pre>
+curl --fail --insecure  -F "wav=@test.wav" -F "txt=@test.txt" https://bark.phon.ioc.ee/autosegment2/run > test.TextGrid
+    </pre>
+    <p>
+    Siin test.wav ja test.txt on sisendfailid ja tulemusena (eeldusel, et segmenteerimine oli edukas) genereeritakse test.TextGrid. Kui segmenteerimine
+    ebaõnnestus, on väljundfaili suurus 0, samuti on protsessi staatuse kood ($?) nullist erinev.
+    </p>
+    <p>
+        Võtit --fail kasutatakse curli käsureal selleks, et segmenteerimise ebaõnnestumise korral curl tagastakse nullist erineva veakoodi. 
+        Võti --insecure on kasutusel seetõttu, et curl ei tunne millegipärast meie serveri SSL sertifikaati.
+    </p>
+
+    <p>
+        Käsureafunktsionaalsuse abil on võimalik päris lihtsalt näiteks terve kataloogitäie jagu faile ära segmenteerida. 
+        Eelduseks on see, et igale wav-failile vastab sama nimega txt-fail. Siis saab .TextGrid  failise saamiseks kasutada allolevat 
+        käsurida (eeldusel, et kasutatakse bash shelli, s.t. Linuxit või midagi sarnast). See tuleks käivitada selles kataloogis,
+        kus failid asuvad.
+    </p>
+    <pre>
+for f in *.wav; do \
+  b=`basename $f .wav`; \
+  curl --insecure  -F "wav=@$b.wav" -F "txt=@$b.txt" https://bark.phon.ioc.ee/autosegment2/run > $b.TextGrid; \
+done        
+    </pre>
+
+
+
+
+
+  </div>
+</body>
+
+</html>

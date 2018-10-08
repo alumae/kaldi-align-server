@@ -23,24 +23,17 @@ class Application(tornado.web.Application):
         settings = dict(
             cookie_secret="43oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
             static_path=path(ROOT, 'static'),
+            static_handler_args=dict(default_filename="index.html"),
             xsrf_cookies=False,
             autoescape=None,
             serve_traceback=True
         )
 
         handlers = [
-            (r"/", MainHandler),
-            (r"/align", AlignHandler),
-            (r"/(.+\.html)", tornado.web.StaticFileHandler, {'path': settings["static_path"]}),
+            (r"/run", AlignHandler),
+            (r"/(.*)", tornado.web.StaticFileHandler, {'path': settings["static_path"], 'default_filename' : 'index.html'}),
         ]
         tornado.web.Application.__init__(self, handlers, **settings)
-
-class MainHandler(tornado.web.RequestHandler):
-    def get(self):
-        current_directory = os.path.dirname(os.path.abspath(__file__))
-        parent_directory = os.path.join(current_directory, os.pardir)
-        readme = os.path.join(parent_directory, "README.md")
-        self.render(readme)
 
 class AlignHandler(tornado.web.RequestHandler):
 
@@ -103,9 +96,6 @@ async def run_align(aligner_directory, wav, txt, textgrid):
         output = (await proc.stdout.read_until_close()).decode("utf-8") 
         logging.warn("Alignment failed. Last 100 chars of output: " + str(output)[-100:])
         raise Exception(output)
-        #raise tornado.web.HTTPError(status_code=400, reason="Alignment failed", exc_info=output)
-
-#class AlignmentError(tornado.web.HTTPError):
 
 
 def main():

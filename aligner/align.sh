@@ -118,7 +118,7 @@ nbest-to-ctm --print-silence=true --frame-shift=${frame_shift} ark:$dir/ali/lat.
 #make phone CTM
 lattice-to-phone-lattice build/model/${acmodel}/final.mdl ark:$dir/ali/lat.ark ark:- | \
   nbest-to-ctm --print-silence=true --frame-shift=${frame_shift} ark:- - | \
-  ./utils/int2sym.pl -f 5 <(perl -npe 's/_[BIES]//; s/ou/õ/g; s/ae/ä/g; s/oe/ö/g; s/ue/ü/g;' $dir/lang/phones.txt ) > $dir/ali/phones.ctm
+  ./utils/int2sym.pl -f 5 <(perl -npe 's/_[BIES]//; s/ou/õ/g; s/ae/ä/g; s/oe/ö/g; s/ue/ü/g; s/sh/š/g;' $dir/lang/phones.txt ) > $dir/ali/phones.ctm
 
 python3 local/make_textgrid.py $dir/ali/words.ctm $dir/ali/phones.ctm $dir/ali/result.TextGrid
 
