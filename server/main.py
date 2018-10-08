@@ -79,7 +79,9 @@ class AlignHandler(tornado.web.RequestHandler):
         logging.info("Cleaning up")
         for extension in ["wav", "txt", "TextGrid"]:
             try:
-                os.remove(self.aligner_directory + "user_files/" + self.upload_id + "." + extension)
+                filename = self.aligner_directory + "user_files/" + self.upload_id + "." + extension
+                if os.path.exists(filename):
+                    os.remove(filename)
             except Exception as e:
                 logging.exception("Error occurred when cleaning up")
 
