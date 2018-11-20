@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y  \
     autoconf \
     automake \
     bzip2 \
+    zip \
     g++ \
     gfortran \
     git \
@@ -50,8 +51,11 @@ RUN apt-get install -y python3-pip uuid-runtime icu-devtools
 
 RUN pip3 install tornado textgrid
 
-RUN echo 1 > /dev/null && \
+RUN echo 2 > /dev/null && \
     git clone https://github.com/alumae/kaldi-align-server.git
     
 RUN perl -i -npe 's#KALDI_ROOT=.*#KALDI_ROOT=/opt/kaldi#' /opt/kaldi-align-server/aligner/align.sh
 
+WORKDIR /opt/kaldi-align-server
+
+ENTRYPOINT ["python3", "server/main.py"]
